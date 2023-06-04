@@ -221,23 +221,23 @@ if __name__ == '__main__':
 
     file               = receber_arquivo('jogador2.txt')
     p2_pos, p2_torpedo = configurar_jogador(file)
-    qtt_pecas_validas_p2  = validar_qtt_pecas(p2_pos, p2_torpedo)
-    ovw_pecas_validas_p2  = validar_peca_ovw(p2_pos)
-    pos_pecas_validas_p2  = validar_peca_pos(p2_pos, p2_torpedo)
+    qtt_pecas_validas  = validar_qtt_pecas(p2_pos, p2_torpedo)
+    ovw_pecas_validas  = validar_peca_ovw(p2_pos)
+    pos_pecas_validas  = validar_peca_pos(p2_pos, p2_torpedo)
     pontuacao_p2          = calcular_pontuacao(p2_pos, p2_torpedo)
-    if qtt_pecas_validas_p2 is False and error_p2== 0:
+    if qtt_pecas_validas is False and error_p2== 0:
         resultado['Jogador'] = 'J2'
         resultado['erro'] = Error.NR_PART.value
         error_p2= 1
         with open("resultado.txt", 'w') as f:
             f.write(resultado['Jogador'] + " " + resultado['erro'])
-    elif ovw_pecas_validas_p2 is False and error_p2== 0:
+    elif ovw_pecas_validas is False and error_p2== 0:
         resultado['Jogador'] = 'J2'
         resultado['erro'] = Error.OVW_PIECE.value
         error_p2= 1
         with open("resultado.txt", 'w') as f:
             f.write(resultado['Jogador'] + " " + resultado['erro'])
-    elif pos_pecas_validas_p2 is False and error_p2== 0:
+    elif pos_pecas_validas is False and error_p2== 0:
         resultado['Jogador'] = 'J2'
         resultado['erro'] = Error.POS_NOEXIST.value
         error_p2= 1
