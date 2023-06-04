@@ -113,15 +113,20 @@ def validar_peca_ovw(posicoes: dict) -> bool:
     return any(count == 1 for count in result.values())
 
 # STEP6 - VALIDAR POSIÇÃO DAS PECAS
-def validar_peca_pos(posicoes: dict) -> bool:
+def validar_peca_pos(posicoes: dict, torpedos: list) -> bool:
     result = True
     for key in posicoes:
         for value in posicoes[key].values():
             for peca in value:
                 if peca[0] not in Configs.VALID_COLUMNS.value:
                     result = False
-                if int(peca[1:]) >= 15:
+                if int(peca[1:]) > 15:
                     result = False
+    for torp in torpedos:
+        if torp[0] not in Configs.VALID_COLUMNS.value:
+            result = False
+        if int(torp[1:]) > 15:
+            result = False
 
     return result
 
@@ -172,63 +177,72 @@ def gerar_saida(pontuacao_j1: tuple, pontuacao_j2: tuple) -> None:
         resultado['acertos'] = f'{pontuacao_j1[1]}AA'
         resultado['erros'] = f'{pontuacao_j1[2]}AE'
         resultado['pontuacao'] = f'{pontuacao_j1[0]}PT'
-        file.write('J1 ' + f'{pontuacao_j1[1]}AA ' + f'{pontuacao_j1[2]}AE ' + f'{pontuacao_j1[0]}PT\n')
+        file.write('J1 ' + f'{pontuacao_j1[1]}AA ' + f'{pontuacao_j1[2]}AE ' + f'{pontuacao_j1[0]}PT')
     elif pontuacao_j1[0] < pontuacao_j2[0]:
         resultado['jogador'] = 'J2'
         resultado['acertos'] = f'{pontuacao_j2[1]}AA'
         resultado['erros'] = f'{pontuacao_j2[2]}AE'
         resultado['pontuacao'] = f'{pontuacao_j2[0]}PT'
-        file.write('J2 ' + f'{pontuacao_j2[1]}AA ' + f'{pontuacao_j2[2]}AE ' + f'{pontuacao_j2[0]}PT\n')
+        file.write('J2 ' + f'{pontuacao_j2[1]}AA ' + f'{pontuacao_j2[2]}AE ' + f'{pontuacao_j2[0]}PT')
     else:
         file.write('J1 ' + f'{pontuacao_j1[1]}AA ' + f'{pontuacao_j1[2]}AE ' + f'{pontuacao_j1[0]}PT\n')
-        file.write('J2 ' + f'{pontuacao_j2[1]}AA ' + f'{pontuacao_j2[2]}AE ' + f'{pontuacao_j2[0]}PT\n')
+        file.write('J2 ' + f'{pontuacao_j2[1]}AA ' + f'{pontuacao_j2[2]}AE ' + f'{pontuacao_j2[0]}PT')
 
 
 
 if __name__ == '__main__':
     resultado          = {}
+    error_p1           = 0
+    error_p2           = 0
     file               = receber_arquivo('jogador1.txt')
     p1_pos, p1_torpedo = configurar_jogador(file)
     qtt_pecas_validas_p1  = validar_qtt_pecas(p1_pos, p1_torpedo)
     ovw_pecas_validas_p1  = validar_peca_ovw(p1_pos)
-    pos_pecas_validas_p1  = validar_peca_pos(p1_pos)
+    pos_pecas_validas_p1  = validar_peca_pos(p1_pos, p1_torpedo)
     pontuacao_p1          = calcular_pontuacao(p1_pos, p1_torpedo)
-    if qtt_pecas_validas_p1 is False:
-        resultado['Jogador'] = 'jogador1'
+    if qtt_pecas_validas_p1 is False and error_p1 == 0:
+        resultado['Jogador'] = 'J1'
         resultado['erro'] = Error.NR_PART.value
+        error_p1 = 1
         with open("resultado.txt", 'w') as f:
             f.write(resultado['Jogador'] + " " + resultado['erro'])
-    elif ovw_pecas_validas_p1 is False:
-        resultado['Jogador'] = 'jogador1'
+    elif ovw_pecas_validas_p1 is False and error_p1 == 0:
+        resultado['Jogador'] = 'J1'
         resultado['erro'] = Error.OVW_PIECE.value
+        error_p1 = 1
         with open("resultado.txt", 'w') as f:
             f.write(resultado['Jogador'] + " " + resultado['erro'])
-    elif pos_pecas_validas_p1 is False:
-        resultado['Jogador'] = 'jogador1'
+    elif pos_pecas_validas_p1 is False and error_p1 == 0:
+        resultado['Jogador'] = 'J1'
         resultado['erro'] = Error.POS_NOEXIST.value
+        error_p1 = 1
         with open("resultado.txt", 'w') as f:
             f.write(resultado['Jogador'] + " " + resultado['erro'])
 
     file               = receber_arquivo('jogador2.txt')
     p2_pos, p2_torpedo = configurar_jogador(file)
-    qtt_pecas_validas  = validar_qtt_pecas(p2_pos, p2_torpedo)
-    ovw_pecas_validas  = validar_peca_ovw(p2_pos)
-    pos_pecas_validas  = validar_peca_pos(p2_pos)
+    qtt_pecas_validas_p2  = validar_qtt_pecas(p2_pos, p2_torpedo)
+    ovw_pecas_validas_p2  = validar_peca_ovw(p2_pos)
+    pos_pecas_validas_p2  = validar_peca_pos(p2_pos, p2_torpedo)
     pontuacao_p2          = calcular_pontuacao(p2_pos, p2_torpedo)
-    if qtt_pecas_validas is False:
-        resultado['Jogador'] = 'jogador2'
+    if qtt_pecas_validas_p2 is False and error_p2== 0:
+        resultado['Jogador'] = 'J2'
         resultado['erro'] = Error.NR_PART.value
+        error_p2= 1
         with open("resultado.txt", 'w') as f:
             f.write(resultado['Jogador'] + " " + resultado['erro'])
-    elif ovw_pecas_validas is False:
-        resultado['Jogador'] = 'jogador2'
+    elif ovw_pecas_validas_p2 is False and error_p2== 0:
+        resultado['Jogador'] = 'J2'
         resultado['erro'] = Error.OVW_PIECE.value
+        error_p2= 1
         with open("resultado.txt", 'w') as f:
             f.write(resultado['Jogador'] + " " + resultado['erro'])
-    elif pos_pecas_validas is False:
-        resultado['Jogador'] = 'jogador2'
+    elif pos_pecas_validas_p2 is False and error_p2== 0:
+        resultado['Jogador'] = 'J2'
         resultado['erro'] = Error.POS_NOEXIST.value
+        error_p2= 1
         with open("resultado.txt", 'w') as f:
             f.write(resultado['Jogador'] + " " + resultado['erro'])
 
-    gerar_saida(pontuacao_j1=pontuacao_p1, pontuacao_j2=pontuacao_p2)
+    if error_p1 == 0 and error_p2 == 0:
+        gerar_saida(pontuacao_j1=pontuacao_p1, pontuacao_j2=pontuacao_p2)
