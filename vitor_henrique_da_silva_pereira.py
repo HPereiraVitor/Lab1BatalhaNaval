@@ -8,6 +8,8 @@ class Configs(Enum):
     BOATS_ID = ('1','2','3','4')
     TORPEDO_ID = "T"
     VALID_COLUMNS = ("A","B","C","D","E","F","G","H","I","J","L","M","N","O","P")
+    PT_ACERTO = 3
+    PT_AFUNDADO = 5
 
 boats = {
     "1": {
@@ -81,7 +83,12 @@ def configurar_jogador(arquivo: str) -> list:
                 boat = boats[str(i+1)]
                 for k in range(boat['max_posicoes']):
                     # TODO: BYPASS 'K' LETTER
-                    p = (f'{chr(ord(b[0][0])+k)}{b[0][1:-1]}' if b[0][-1] == 'V' else f'{b[0][0]}{int(b[0][1:-1])+k}') if b[0][-1] in ('V', 'H') else (b)
+                    p = \
+                        (f'{(chr(ord(b[0][0])+k)) if (chr(ord(b[0][0])+k)) != "K" else (chr(ord(b[0][0])+k+1))}{b[0][1:-1]}' \
+                                if b[0][-1] == 'V' \
+                                else f'{b[0][0]}{int(b[0][1:-1])+k}') \
+                        if b[0][-1] in ('V', 'H') \
+                        else b
                     b.append(p)
                 b.pop(0)
 
@@ -136,37 +143,36 @@ def validar_peca_pos(posicoes: dict, torpedos: list) -> bool:
 def calcular_pontuacao(posicoes: dict, torpedos: list) -> tuple:
     acertos: int = 0
     erros: int = 0
+    pont: int = 0
     for torp in torpedos:
         acerto: bool = False
         for enc in posicoes['1'].values():
             if torp in enc and acerto is False:
                 acertos += 1
-                enc.pop(enc.index(torp))
                 acerto = True
+                enc.pop(enc.index(torp))
+                pont += Configs.PT_ACERTO.value if len(enc) != 0 else Configs.PT_AFUNDADO.value
         for poravi in posicoes['2'].values():
             if torp in poravi and acerto is False:
                 acertos += 1
                 acerto = True
                 poravi.pop(poravi.index(torp))
+                pont += Configs.PT_ACERTO.value if len(enc) != 0 else Configs.PT_AFUNDADO.value
         for sub in posicoes['3'].values():
             if torp in sub and acerto is False:
                 acertos += 1
                 acerto = True
                 sub.pop(sub.index(torp))
+                pont += Configs.PT_AFUNDADO.value
         for cru in posicoes['4'].values():
             if torp in cru and acerto is False:
                 acertos += 1
                 acerto = True
                 cru.pop(cru.index(torp))
+                pont += Configs.PT_ACERTO.value if len(enc) != 0 else Configs.PT_AFUNDADO.value
 
         if acerto is False:
             erros += 1
-
-    pont: int = 0
-    for i, pos in enumerate(posicoes.values()):
-        for j, boat in enumerate(pos.values()):
-            if len(boat) < boats[f'{i+1}']['max_posicoes']:
-                pont += ((boats[f'{i+1}']['max_posicoes'] - len(boat)) * 3) if len(boat) > 0 else 5
 
     return pont, acertos, erros
 
@@ -201,7 +207,7 @@ if __name__ == '__main__':
     qtt_pecas_validas_p1  = validar_qtt_pecas(p1_pos, p1_torpedo)
     ovw_pecas_validas_p1  = validar_peca_ovw(p1_pos)
     pos_pecas_validas_p1  = validar_peca_pos(p1_pos, p1_torpedo)
-    pontuacao_p1          = calcular_pontuacao(p1_pos, p1_torpedo)
+
     if qtt_pecas_validas_p1 is False and error_p1 == 0:
         resultado['Jogador'] = 'J1'
         resultado['erro'] = Error.NR_PART.value
@@ -226,7 +232,7 @@ if __name__ == '__main__':
     qtt_pecas_validas  = validar_qtt_pecas(p2_pos, p2_torpedo)
     ovw_pecas_validas  = validar_peca_ovw(p2_pos)
     pos_pecas_validas  = validar_peca_pos(p2_pos, p2_torpedo)
-    pontuacao_p2          = calcular_pontuacao(p2_pos, p2_torpedo)
+
     if qtt_pecas_validas is False and error_p2== 0:
         resultado['Jogador'] = 'J2'
         resultado['erro'] = Error.NR_PART.value
@@ -246,5 +252,7 @@ if __name__ == '__main__':
         with open("resultado.txt", 'w') as f:
             f.write(resultado['Jogador'] + " " + resultado['erro'])
 
+    pontuacao_p1          = calcular_pontuacao(p2_pos, p1_torpedo)
+    pontuacao_p2          = calcular_pontuacao(p1_pos, p2_torpedo)
     if error_p1 == 0 and error_p2 == 0:
         gerar_saida(pontuacao_j1=pontuacao_p1, pontuacao_j2=pontuacao_p2)
