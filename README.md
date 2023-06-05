@@ -1,6 +1,6 @@
 > [Jogo - Batalha Naval]{.underline}
 
-![](https://github.com/HPereiraVitor/Lab1BatalhaNaval/blob/main/images/media/image1.jpeg)
+![](https://github.com/HPereiraVitor/Lab1BatalhaNaval/blob/main/images/media/image1.jpeg) <br/>
 Este exercício consiste no desenvolvimento de um jogo de
 Batalha Naval reduzido, que contemplará as peças demonstradas na Figura
 1, sendo constituídas por um tabuleiro de 15 x 15 posições (Figura 1).
