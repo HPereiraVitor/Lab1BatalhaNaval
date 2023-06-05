@@ -1,6 +1,7 @@
 > [Jogo - Batalha Naval]{.underline}
 
-![](https://github.com/HPereiraVitor/Lab1BatalhaNaval/blob/main/images/media/image1.jpeg)Este exercício consiste no desenvolvimento de um jogo de
+![](https://github.com/HPereiraVitor/Lab1BatalhaNaval/blob/main/images/media/image1.jpeg)
+Este exercício consiste no desenvolvimento de um jogo de
 Batalha Naval reduzido, que contemplará as peças demonstradas na Figura
 1, sendo constituídas por um tabuleiro de 15 x 15 posições (Figura 1).
 
@@ -10,16 +11,16 @@ Para este jogo a ser desenvolvido, serão consideradas as seguintes peças
 que poderão ser posicionadas na **horizontal** (deslocamento sempre à
 direita) ou **vertical** (deslocamento sempre abaixo):
 
--   ![](https://github.com/HPereiraVitor/Lab1BatalhaNaval/blob/main/images/media/image2.jpeg)Código
-    1 - (encouraçados -- 4 posições);
+-   Código 1 - (encouraçados -- 4 posições);
 
 -   Código 2 - (porta-aviões -- 5 posições);
 
 -   Código 3 - (submarinos -- 1 posição);
 
--   Código 4 -
-    ![](https://github.com/HPereiraVitor/Lab1BatalhaNaval/blob/main/images/media/image5.jpeg) (cruzadores -- 2 posições); O jogo
-    deverá atender aos seguintes requisitos:
+-   Código 4 - (cruzadores -- 2 posições);
+
+
+    O jogo deverá atender aos seguintes requisitos:
 
 1.  O sistema deverá receber dois arquivos de entrada para processamento
     do programa, denominados: **jogador1.txt (ID=J1)** e **jogador2.txt
@@ -49,10 +50,8 @@ direita) ou **vertical** (deslocamento sempre abaixo):
 > grupo de instruções de posicionamento das peças e do grupo de
 > instruções de lançamento de torpedo\>
 >
-> **T;A1\|A2\|A3** → \<código de torpedo\>;\<posições onde os torpedos
-> serão
->
-> ![](https://github.com/HPereiraVitor/Lab1BatalhaNaval/blob/main/images/media/image6.jpeg)disparados\>
+> **T;A1\|A2\|A3** → \<código de torpedo\>;\<posições onde os torpedos serão disparados\>
+> ![](https://github.com/HPereiraVitor/Lab1BatalhaNaval/blob/main/images/media/image6.jpeg)
 
 3.  As peças de código 3 (três) serão as únicas a não possuírem
     direcionamento, por ocuparem apenas uma posição no tabuleiro;
