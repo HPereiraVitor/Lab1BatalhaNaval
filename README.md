@@ -1,7 +1,6 @@
 > [Jogo - Batalha Naval]{.underline}
 
-![](https://github.com/HPereiraVitor/Lab1BatalhaNaval/blob/main/images/media/image1.jpeg){width="3.022956036745407in"
-height="4.05in"}Este exercício consiste no desenvolvimento de um jogo de
+![](https://github.com/HPereiraVitor/Lab1BatalhaNaval/blob/main/images/media/image1.jpeg)Este exercício consiste no desenvolvimento de um jogo de
 Batalha Naval reduzido, que contemplará as peças demonstradas na Figura
 1, sendo constituídas por um tabuleiro de 15 x 15 posições (Figura 1).
 
@@ -11,7 +10,7 @@ Para este jogo a ser desenvolvido, serão consideradas as seguintes peças
 que poderão ser posicionadas na **horizontal** (deslocamento sempre à
 direita) ou **vertical** (deslocamento sempre abaixo):
 
--   ![](media/media/image2.jpeg)Código
+-   ![](https://github.com/HPereiraVitor/Lab1BatalhaNaval/blob/main/images/media/image2.jpeg)Código
     1 - (encouraçados -- 4 posições);
 
 -   Código 2 - (porta-aviões -- 5 posições);
@@ -19,8 +18,7 @@ direita) ou **vertical** (deslocamento sempre abaixo):
 -   Código 3 - (submarinos -- 1 posição);
 
 -   Código 4 -
-    ![](media/media/image5.png){width="0.41654746281714783in"
-    height="0.23943022747156606in"} (cruzadores -- 2 posições); O jogo
+    ![](https://github.com/HPereiraVitor/Lab1BatalhaNaval/blob/main/images/media/image5.jpeg) (cruzadores -- 2 posições); O jogo
     deverá atender aos seguintes requisitos:
 
 1.  O sistema deverá receber dois arquivos de entrada para processamento
@@ -54,8 +52,7 @@ direita) ou **vertical** (deslocamento sempre abaixo):
 > **T;A1\|A2\|A3** → \<código de torpedo\>;\<posições onde os torpedos
 > serão
 >
-> ![](media/media/image6.jpeg){width="3.4166655730533684in"
-> height="3.4166666666666665in"}disparados\>
+> ![](https://github.com/HPereiraVitor/Lab1BatalhaNaval/blob/main/images/media/image6.jpeg)disparados\>
 
 3.  As peças de código 3 (três) serão as únicas a não possuírem
     direcionamento, por ocuparem apenas uma posição no tabuleiro;
@@ -100,8 +97,7 @@ direita) ou **vertical** (deslocamento sempre abaixo):
     de saída e o jogo finalizado:
     **ERROR_POSITION_NONEXISTENT_VALIDATION**;
 
-8.  ![](media/media/image7.png){width="2.352392825896763in"
-    height="1.3249989063867016in"}A linha que representa os torpedos a
+8.  ![](https://github.com/HPereiraVitor/Lab1BatalhaNaval/blob/main/images/media/image7.jpeg)A linha que representa os torpedos a
     serem disparados deverá ser lida e para cada posição que representa
     o ponto onde o torpedo será direcionado, o sistema deverá analisar
     se o adversário possui algum navio na posição. Se o alvo na posição
