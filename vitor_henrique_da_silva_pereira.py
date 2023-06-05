@@ -109,8 +109,10 @@ def validar_peca_ovw(posicoes: dict) -> bool:
 
     for peca in pecas:
         result.update({peca: pecas.count(peca)})
+        if pecas.count(peca) != 1:
+            return False
 
-    return any(count == 1 for count in result.values())
+    return True
 
 # STEP6 - VALIDAR POSIÇÃO DAS PECAS
 def validar_peca_pos(posicoes: dict, torpedos: list) -> bool:
